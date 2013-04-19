@@ -62,7 +62,7 @@
                         </p:store>
                     </p:when>
                     <p:otherwise>
-                        <p:store>
+                        <p:store indent="true" encoding="UTF-8">
                             <p:with-option name="href" select="$target"/>
                         </p:store>
                     </p:otherwise>
