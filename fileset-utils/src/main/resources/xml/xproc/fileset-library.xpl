@@ -12,5 +12,7 @@
     <p:import href="fileset-load.xpl"/>
     <p:import href="fileset-store.xpl"/>
     <p:import href="fileset-add-ref.xpl"/>
+    
+    <p:import href="fileset-in-memory-update.xpl"/>
 
 </p:library>

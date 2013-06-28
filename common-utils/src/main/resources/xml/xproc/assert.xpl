@@ -19,7 +19,10 @@
         <p:pipe port="result" step="result"/>
     </p:output>
     
-    <p:option name="test" required="true"/>                                         <!-- boolean -->
+    <p:option name="test" select="''"/>                                             <!-- boolean - if not given; test-count, test-count-min and test-count-max will be evaluated -->
+    <p:option name="test-count" select="''"/>                                       <!-- integer -->
+    <p:option name="test-count-min" select="''"/>                                   <!-- integer -->
+    <p:option name="test-count-max" select="''"/>                                   <!-- integer -->
     <p:option name="error-code" select="''"/>                                       <!-- QName - if not given, only a warning will be displayed. -->
     <p:option name="error-code-prefix" select="''"/>                                <!-- NCName -->
     <p:option name="error-code-namespace" select="''"/>                             <!-- anyURI -->
@@ -60,18 +63,77 @@
     
     <p:choose>
         <p:when test="$test='true'">
-            <!-- assertion passed; do nothing -->
             <p:identity>
+                <p:input port="source">
+                    <p:inline>
+                        <c:result>true</c:result>
+                    </p:inline>
+                </p:input>
+            </p:identity>
+        </p:when>
+        
+        <p:when test="$test='false'">
+            <p:identity>
+                <p:input port="source">
+                    <p:inline>
+                        <c:result>false</c:result>
+                    </p:inline>
+                </p:input>
+            </p:identity>
+        </p:when>
+        
+        <p:otherwise>
+            <p:count>
                 <p:input port="source">
                     <p:pipe port="source" step="main"/>
                 </p:input>
-            </p:identity>
+            </p:count>
+            <p:choose>
+                <p:when test="($test-count-min='' or number($test-count-min)&lt;=number(/*))
+                            and ($test-count-max='' or number($test-count-max)&gt;=number(/*))
+                            and ($test-count='' or $test-count=/*)">
+                    <p:identity>
+                       <p:input port="source">
+                           <p:inline>
+                               <c:result>true</c:result>
+                           </p:inline>
+                       </p:input>
+                    </p:identity>
+                </p:when>
+                <p:otherwise>
+                    <p:identity>
+                       <p:input port="source">
+                           <p:inline>
+                               <c:result>false</c:result>
+                           </p:inline>
+                       </p:input>
+                    </p:identity>
+                </p:otherwise>
+            </p:choose>
+        </p:otherwise>
+    </p:choose>
+    <p:identity name="test-result"/>
+    
+    <p:identity>
+        <p:input port="source">
+            <p:pipe port="source" step="main"/>
+        </p:input>
+    </p:identity>
+    <p:choose>
+        <p:xpath-context>
+            <p:pipe port="result" step="test-result"/>
+        </p:xpath-context>
+        <p:when test="/*='true'">
+            <!-- assertion passed; do nothing -->
+            <p:identity/>
         </p:when>
         
         <p:when test="not($error-code='')">
             <!-- assertion failed; throw error -->
             <px:error>
-                <p:with-option name="message" select="/*/@message"/>
+                <p:with-option name="message" select="/*/@message">
+                    <p:pipe port="result" step="message"/>
+                </p:with-option>
                 <p:with-option name="code" select="$error-code"/>
                 <p:with-option name="code-namespace" select="$error-code-namespace"/>
                 <p:with-option name="code-prefix" select="$error-code-prefix"/>
@@ -81,7 +143,9 @@
         <p:otherwise>
             <!-- assertion failed; display warning -->
             <px:message>
-                <p:with-option name="message" select="/*/@message"/>
+                <p:with-option name="message" select="/*/@message">
+                    <p:pipe port="result" step="message"/>
+                </p:with-option>
                 <p:with-option name="severity" select="'WARN'"/>
                 <p:input port="source">
                     <p:pipe port="source" step="main"/>
