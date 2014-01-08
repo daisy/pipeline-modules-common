@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" stylesheet="../main/resources/xml/xslt/deep-level-grouping.xsl">
+
+    <x:param name="name" select="'section'"/>
+    <x:param name="namespace" select="'#'"/>
+    <x:param name="max-depth" select="2"/>
+
+    <x:scenario label="Scenario for testing unwrapping deep sectioning elements">
+        <x:context>
+            <section id="s0" xmlns="#">
+                <h6 before-groups="">h6 #1</h6>
+                <p before-groups="">level1 #1</p>
+                <section id="s1">
+                    <h6 group="1">h6 #2</h6>
+                    <p group="1">level2 #1</p>
+                    <section id="s2">
+                        <h6 group="2">h6 #3</h6>
+                        <p group="2">level3 #1</p>
+                        <section id="s3">
+                            <h6 group="3">h6 #4</h6>
+                            <p group="3">level4</p>
+                        </section>
+                        <p group="4">level3 #2</p>
+                    </section>
+                    <p group="5">level2 #2</p>
+                    <div class="divclass" id="divid">
+                        <p group="5">level2 #3</p>
+                        <section id="s4">
+                            <h6 group="6">h6 #5</h6>
+                            <p group="6">level3 #3</p>
+                        </section>
+                        <p group="7">level2 #4</p>
+                    </div>
+                    <p group="7">level2 #5</p>
+                </section>
+                <p between-groups="">level1 #2</p>
+                <section id="s5">
+                    <p group="8">level2 #6</p>
+                </section>
+                <p after-groups="">level1 #3</p>
+            </section>
+        </x:context>
+
+        <x:expect label="The modified result should not contain sections deeper than two levels">
+            <section id="s0" xmlns="#">
+                <h6 before-groups="">h6 #1</h6>
+                <p before-groups="">level1 #1</p>
+                <section id="s1">
+                    <h6 group="1">h6 #2</h6>
+                    <p group="1">level2 #1</p>
+                </section>
+                <section id="s2">
+                    <h6 group="2">h6 #3</h6>
+                    <p group="2">level3 #1</p>
+                </section>
+                <section id="s3">
+                    <h6 group="3">h6 #4</h6>
+                    <p group="3">level4</p>
+                </section>
+                <section id="s2">
+                    <p group="4">level3 #2</p>
+                </section>
+                <section id="s1">
+                    <p group="5">level2 #2</p>
+                    <div class="divclass" id="divid">
+                        <p group="5">level2 #3</p>
+                    </div>
+                </section>
+                <section id="s4">
+                    <h6 group="6">h6 #5</h6>
+                    <p group="6">level3 #3</p>
+                </section>
+                <section id="s1">
+                    <div class="divclass" id="divid">
+                        <p group="7">level2 #4</p>
+                    </div>
+                    <p group="7">level2 #5</p>
+                </section>
+                <p between-groups="">level1 #2</p>
+                <section id="s5">
+                    <p group="8">level2 #6</p>
+                </section>
+                <p after-groups="">level1 #3</p>
+            </section>
+        </x:expect>
+    </x:scenario>
+
+</x:description>
