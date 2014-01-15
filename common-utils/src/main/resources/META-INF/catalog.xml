@@ -5,5 +5,5 @@
      <uri name="http://www.daisy.org/pipeline/modules/common-utils/numeral-conversion.xsl"
           uri="../xml/xslt/numeral-conversion.xsl"/>
      <uri name="http://www.daisy.org/pipeline/modules/common-utils/deep-level-grouping.xsl"
-          uri="../xml/xslt/numeral-conversion.xsl"/>
+          uri="../xml/xslt/deep-level-grouping.xsl"/>
 </catalog>
