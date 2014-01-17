@@ -42,9 +42,9 @@
   </define>
   <define name="reports">
     <element name="reports">
-      <oneOrMore>
+      <zeroOrMore>
         <ref name="report"/>
-      </oneOrMore>
+      </zeroOrMore>
     </element>
   </define>
   <define name="report">
