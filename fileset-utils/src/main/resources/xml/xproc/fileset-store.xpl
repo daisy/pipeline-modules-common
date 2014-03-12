@@ -99,7 +99,7 @@
                             <p:with-option name="normalization-form" select="$normalization-form"/>
                         </p:store>
                     </p:when>
-                    <p:when test="$media-type='application/xhtml+xml'">
+                    <p:when test="$method='xhtml'">
                         <p:store encoding="utf-8" method="xhtml"
                             include-content-type="false">
                             <p:with-option name="href" select="$target"/>
