@@ -240,7 +240,7 @@
                   </p:when>
 
                   <!-- HTML -->
-                  <p:when test="$media-type='text/html' or $media-type='application/xhtml+xml'">
+                  <p:when test="$media-type='text/html'">
                     <px:html-load>
                       <p:with-option name="href" select="$on-disk"/>
                     </px:html-load>
