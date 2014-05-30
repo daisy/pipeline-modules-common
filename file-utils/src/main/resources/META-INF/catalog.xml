@@ -4,4 +4,6 @@
         uri="../xml/xproc/file-library.xpl"/>
    <uri name="http://www.daisy.org/pipeline/modules/file-utils/uri-functions.xsl"
         uri="../xml/xslt/uri-functions.xsl"/>
+   <uri name="http://www.daisy.org/pipeline/modules/file-utils/css-stylesheet-uris.xsl"
+        uri="../xml/xslt/css-stylesheet-uris.xsl"/>
 </catalog>
