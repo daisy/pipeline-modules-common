@@ -22,12 +22,12 @@
   <modules>
     <module>common-utils</module>
     <module>file-utils</module>
-    <!-- <module>fileset-utils</module> -->
+    <module>fileset-utils</module>
     <!-- <module>image-utils</module> -->
     <!-- <module>mediatype-utils</module> -->
     <!-- <module>metadata-utils</module> -->
     <!-- <module>validation-utils</module> -->
-    <!-- <module>zip-utils</module> -->
+    <module>zip-utils</module>
   </modules>
 
   <!-- BoM of the default script modules (for use in assemblies) -->
@@ -46,7 +46,7 @@
       <dependency>
         <groupId>org.daisy.pipeline.modules</groupId>
         <artifactId>fileset-utils</artifactId>
-        <version>1.1.0</version>
+        <version>1.1.1-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.daisy.pipeline.modules</groupId>
@@ -71,7 +71,7 @@
       <dependency>
         <groupId>org.daisy.pipeline.modules</groupId>
         <artifactId>zip-utils</artifactId>
-        <version>1.1.0</version>
+        <version>1.1.1-SNAPSHOT</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
