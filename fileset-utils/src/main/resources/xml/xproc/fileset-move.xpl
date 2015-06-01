@@ -35,6 +35,7 @@
     <p:viewport match="/*/d:file" name="file">
         <p:try>
             <p:group>
+                <p:variable name="on-disk" select="resolve-uri(/*/(@original-href,@href)[1],base-uri(/*))"/>
                 <px:info>
                     <p:with-option name="href" select="$on-disk"/>
                 </px:info>
