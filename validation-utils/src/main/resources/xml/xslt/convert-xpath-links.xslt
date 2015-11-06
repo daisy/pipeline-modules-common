@@ -8,28 +8,23 @@
     <xsl:output method="xml" indent="yes"/>
     
     
-    <xsl:template match="/">
-        <xsl:variable name="failed-asserts" select="collection()/d:document-validation-report//svrl:failed-assert"/>
-        <xsl:for-each-group select="$failed-asserts" group-by="@location">
-            <xsl:apply-templates select="current()"/>
-        </xsl:for-each-group>   
-        
-        <xsl:variable name="successful-reports" select="collection()/d:document-validation-report//svrl:successful-report"/>
-        <xsl:for-each-group select="$successful-reports" group-by="@location">
-            <xsl:apply-templates select="current()"/>
-        </xsl:for-each-group>   
-        
-    </xsl:template>
+    <!--  | //svrl:successful-report/@location"> -->
     
-    <xsl:template match="svrl:failed-assert/@location | svrl:successful-report/@location">
+    <!-- 
         
-        <xsl:variable name="xpath" select="."/>
-        <xsl:variable name="docelem" select="collection()/$xpath"/>
-        <xsl:variable name="nearest-id" select="$docelem/ancestor::*[@id][1]/@id"/>
-        <xsl:variable name="docpath" select="collection()/d:document-validation-report/d:document-info/d:document-path/text()"/>
-        <xsl:attribute name="location">
-            <xsl:value-of select="concat($docpath, '#', $nearest-id)"/>
-        </xsl:attribute>
+        /*:package[namespace-uri()='http://openebook.org/namespaces/oeb-package/1.0/'][1]/*:metadata[namespace-uri()='http://openebook.org/namespaces/oeb-package/1.0/'][1]/*:x-metadata[namespace-uri()='http://openebook.org/namespaces/oeb-package/1.0/'][1] 
+    -->
+    <xsl:template 
+        match="//svrl:failed-assert">
+        <!-- 
+            [@location = '/*:package[namespace-uri()=&quot;http://openebook.org/namespaces/oeb-package/1.0/&quot;][1]/*:metadata[namespace-uri()=&quot;http://openebook.org/namespaces/oeb-package/1.0/&quot;][1]/*:x-metadata[namespace-uri()=&quot;http://openebook.org/namespaces/oeb-package/1.0/&quot;][1]']">
+        -->
+        <xsl:copy>
+            <xsl:attribute name="temp">PLACEHOLDER</xsl:attribute>
+            <xsl:apply-templates select="node() | @*"/>
+            
+        </xsl:copy>
+        
     </xsl:template>
     
     <xsl:template match="node() | @*">

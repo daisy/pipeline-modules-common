@@ -36,26 +36,6 @@
             <p:string-replace match="/*/text()" replace="replace(/*,'(\n)[\s\n]+\n','$1')"/>
         </p:viewport>
         
-        <p:load name="load-dtbook">
-            <p:with-option 
-                name="href" 
-                select="//d:document-path/text()"/> 
-        </p:load>
-            
-        
-        <p:xslt name="replace-xpath-expressions">
-            <p:input port="source">
-                <!-- there are two documents here: one dtbook and one validation report xml -->
-                <p:pipe port="result" step="load-dtbook"/>
-                <p:pipe port="result" step="viewport"/>
-            </p:input>
-            <p:input port="parameters">
-                <p:empty/>
-            </p:input>
-            <p:input port="stylesheet">
-                <p:document href="../xslt/convert-xpath-links.xslt"/>
-            </p:input>
-        </p:xslt>
         <p:xslt name="htmlify-validation-report">
             <p:input port="parameters">
                 <p:empty/>
@@ -64,6 +44,7 @@
                 <p:document href="../xslt/validation-report-to-html.xsl"/>
             </p:input>
         </p:xslt>
+        
         
     </p:for-each>
     
