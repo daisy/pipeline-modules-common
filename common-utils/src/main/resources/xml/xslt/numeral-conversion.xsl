@@ -5,6 +5,7 @@
 
     <xsl:function name="pf:numeric-is-roman" as="xs:boolean">
         <xsl:param name="roman" as="xs:string"/>
+        <!-- Check each char in roman string if upper-case roman numeral (i.e. part of set: 'MDCLXVI') -->
         <xsl:value-of select="not((for $char in string-to-codepoints($roman) return contains('MDCLXVI',upper-case(codepoints-to-string($char)))) = false())"/>
     </xsl:function>
 
