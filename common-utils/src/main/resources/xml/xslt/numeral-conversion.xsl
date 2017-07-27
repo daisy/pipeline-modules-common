@@ -12,11 +12,18 @@
     <xsl:function name="pf:numeric-roman-to-decimal" as="xs:integer">
         <xsl:param name="roman" as="xs:string"/>
         <!-- TODO: throw error for strings containing characters other than MDCLXVI (case insensitive), the seven characters still in use. -->
+		<!-- replace numerals with their values -->
         <xsl:variable name="hindu-sequence"
             select="for $char in string-to-codepoints($roman) return
-                                number(replace(replace(replace(replace(replace(replace(replace(upper-case(codepoints-to-string($char)),'I','1'),'V','5'),'X','10'),'L','50'),'C','100'),'D','500'),'M','1000'))"/>
+				number(replace(replace(replace(replace(replace(replace(replace(upper-case(codepoints-to-string($char)),'I','1'),'V','5'),'X','10'),'L','50'),'C','100'),'D','500'),'M','1000'))"/>
+		<!-- sign values -->
         <xsl:variable name="hindu-sequence-signed"
-            select="for $i in 1 to count($hindu-sequence) return if (subsequence($hindu-sequence,$i+1) &gt; $hindu-sequence[$i]) then -$hindu-sequence[$i] else $hindu-sequence[$i]"/>
+            select="for $i in 1 to count($hindu-sequence) return 
+					if (subsequence($hindu-sequence,$i+1) &gt; $hindu-sequence[$i]) then 
+						-$hindu-sequence[$i] 
+					else 
+						$hindu-sequence[$i]"/>
+		<!-- sum values -->
         <xsl:value-of select="sum($hindu-sequence-signed)"/>
     </xsl:function>
 
